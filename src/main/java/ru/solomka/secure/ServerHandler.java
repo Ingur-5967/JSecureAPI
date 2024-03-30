@@ -1,8 +1,5 @@
 package ru.solomka.secure;
 
-import com.sun.net.httpserver.HttpsServer;
-
-import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
