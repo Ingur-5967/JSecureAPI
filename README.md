@@ -32,6 +32,20 @@ public class Main implements SecureBoot {
 
 ```
 
+- Send POST request
+
+```java
+        ServerHandler serverHandler = new ServerHandler("localhost:8080");
+        System.out.println(serverHandler.send(jwt));
+```
+
+- Send GET request
+
+```java
+        ServerHandler serverHandler = new ServerHandler("localhost:8080");
+        System.out.println(serverHandler.get());
+```
+
 - Decrypt a JWT Token
 
 ```java
