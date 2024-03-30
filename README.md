@@ -3,8 +3,8 @@
 =NEED A SPRING BOOT=
 | Request              | Address (URL)                               | Answer		    |
 | -------------------- | ------------------------------------------- | -------------------- |
-| GET                  | http://localhost:8080/api/token?sec_jwt=... | Any value (Variable) |
-| POST                 | http://localhost:8080/api/token?sec_jwt=... | Any value (Variable) |
+| GET                  | http://localhost:8080/api/token             | Optional[Any value]  |
+| POST                 | http://localhost:8080/api/token             | Optional[Any value]  |
 
 
 - Generate a JWT Token
@@ -41,15 +41,15 @@ public class Main implements SecureBoot {
 - Send POST request
 
 ```java
-        ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token?jwt=...");
-        System.out.println(serverHandler.send(jwt));
+        ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token");
+        System.out.println(serverHandler.sendWithBody(jwt)); // Answer: Optional[...]
 ```
 
 - Send GET request
 
 ```java
         ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token?jwt=...");
-        System.out.println(serverHandler.get());
+        System.out.println(serverHandler.getOfNullBody()); // Answer: Optional[...]
 ```
 
 - Decrypt a JWT Token
@@ -99,7 +99,7 @@ public class Main implements SecureBoot {
 	<dependency>
 	    <groupId>com.github.Ingur-5967</groupId>
 	    <artifactId>JSecureAPI</artifactId>
-	    <version>1.0.3</version>
+	    <version>1.0.4</version>
 	</dependency>
 </dependencies>
 ```
@@ -116,7 +116,7 @@ dependencyResolutionManagement {
 	}
 
 dependencies {
-	implementation 'com.github.Ingur-5967:JSecureAPI:1.0.3'
+	implementation 'com.github.Ingur-5967:JSecureAPI:1.0.4'
 }
 ```
 
