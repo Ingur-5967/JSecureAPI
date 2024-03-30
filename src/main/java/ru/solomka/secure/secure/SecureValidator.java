@@ -19,7 +19,7 @@ public class SecureValidator {
         this.secureBoot = secureBoot;
     }
 
-    public Optional<Jws<Claims>> validateKey(String encryptKey) {
+    public Optional<Jws<Claims>> validateKey(@NotNull String encryptKey) {
         Jws<Claims> jws;
 
         if(encryptKey.isEmpty()) return Optional.empty();

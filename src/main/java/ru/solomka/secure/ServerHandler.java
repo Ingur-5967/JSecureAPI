@@ -1,10 +1,12 @@
 package ru.solomka.secure;
 
-import java.io.BufferedReader;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Optional;
 
 public class ServerHandler {
@@ -23,84 +25,37 @@ public class ServerHandler {
         this.url = url;
     }
 
-    public Optional<Object> send(String secKey) throws IOException {
-
-        HttpURLConnection connection = getConnection();
-
-        try {
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-        } catch (ProtocolException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        String request = STR."{jwt: \{secKey}";
-
-        OutputStream output = connection.getOutputStream();
-        output.write(request.getBytes());
-        output.flush();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String inputLine;
-
-        while ((inputLine = reader.readLine()) != null) {
-            response.append(inputLine);
-        }
-
-        connection.disconnect();
-
-        return Optional.of(response);
+    public Optional<Object> sendWithBody(String value) throws IOException {
+        HttpRequest request = getRequestBuilder().POST(HttpRequest.BodyPublishers.ofString(value)).build();
+        return Optional.of(getResponse(request, HttpResponse.BodyHandlers.ofString()));
     }
 
-    public Optional<Object> get() {
+    public Optional<Object> getOfNullBody() {
+        HttpRequest request = getRequestBuilder().GET().build();
+        return Optional.of(getResponse(request, HttpResponse.BodyHandlers.ofString()));
+    }
 
-        HttpURLConnection conn = getConnection();
-
+    private HttpRequest.Builder getRequestBuilder() {
         try {
-            conn.setRequestMethod("GET");
-        } catch (ProtocolException e) {
+            return HttpRequest.newBuilder().uri(url.toURI());
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @NotNull
+    private Optional<Object> getResponse(HttpRequest request, HttpResponse.BodyHandler<?> body) {
+        HttpResponse<?> response;
         try {
-            conn.connect();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        BufferedReader in;
-        try {
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while (true) {
             try {
-                if ((inputLine = in.readLine()) == null) break;
+                response = HttpClient.newHttpClient().send(request, body);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            response.append(inputLine);
-        }
-        try {
-            in.close();
-        } catch (IOException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        return Optional.of(response);
-    }
-
-    public HttpURLConnection getConnection() {
-        try {
-            return (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return Optional.of(response.body());
     }
 }
