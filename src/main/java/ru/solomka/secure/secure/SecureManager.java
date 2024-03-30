@@ -28,7 +28,7 @@ public class SecureManager {
 
     public <T extends SecureEntity> String generateSecureKey(@NotNull T entity, long activeTime) {
         if(boot.getRootKey().isEmpty() || (boot.getRootKey().length() * 8) < 256)
-            throw new IllegalArgumentException("Secure key is empty OR him size < 256 symbols");
+            throw new IllegalArgumentException("Secure key is empty OR size < 256 symbols");
 
         SecretKey key = Keys.hmacShaKeyFor(boot.getRootKey().getBytes());
 
