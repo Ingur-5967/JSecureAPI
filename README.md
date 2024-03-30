@@ -93,7 +93,7 @@ public class Main implements SecureBoot {
 	<dependency>
 	    <groupId>com.github.Ingur-5967</groupId>
 	    <artifactId>JSecureAPI</artifactId>
-	    <version>1.0.2</version>
+	    <version>1.0.3</version>
 	</dependency>
 </dependencies>
 ```
@@ -110,7 +110,7 @@ dependencyResolutionManagement {
 	}
 
 dependencies {
-	implementation 'com.github.Ingur-5967:JSecureAPI:1.0.2'
+	implementation 'com.github.Ingur-5967:JSecureAPI:1.0.3'
 }
 ```
 
