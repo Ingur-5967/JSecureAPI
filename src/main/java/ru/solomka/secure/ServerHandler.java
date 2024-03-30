@@ -25,14 +25,14 @@ public class ServerHandler {
         this.url = url;
     }
 
-    public Optional<Object> sendWithBody(String value) throws IOException {
+    public Optional<Object> sendWithBody(String value) {
         HttpRequest request = getRequestBuilder().POST(HttpRequest.BodyPublishers.ofString(value)).build();
-        return Optional.of(getResponse(request, HttpResponse.BodyHandlers.ofString()));
+        return getResponse(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public Optional<Object> getOfNullBody() {
         HttpRequest request = getRequestBuilder().GET().build();
-        return Optional.of(getResponse(request, HttpResponse.BodyHandlers.ofString()));
+        return getResponse(request, HttpResponse.BodyHandlers.ofString());
     }
 
     private HttpRequest.Builder getRequestBuilder() {
