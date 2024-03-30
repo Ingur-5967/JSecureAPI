@@ -2,16 +2,13 @@ import ru.solomka.secure.SecureBoot;
 import ru.solomka.secure.ServerHandler;
 import ru.solomka.secure.secure.SecureEntity;
 import ru.solomka.secure.secure.SecureManager;
-import ru.solomka.secure.secure.SecureValidator;
-import ru.solomka.secure.secure.crypt.EncryptTool;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 public class Main implements SecureBoot {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         String jwt = new SecureManager(Main.class)
                 .generateSecureKey(new SecureEntity() {

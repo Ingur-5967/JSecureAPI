@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.Optional;
 
 public class ServerHandler {
 
@@ -22,7 +23,7 @@ public class ServerHandler {
         this.url = url;
     }
 
-    public Object send(String secKey) throws IOException {
+    public Optional<Object> send(String secKey) throws IOException {
 
         HttpURLConnection connection = getConnection();
 
@@ -50,10 +51,10 @@ public class ServerHandler {
 
         connection.disconnect();
 
-        return response.toString().isEmpty() ? "None" : response;
+        return Optional.of(response);
     }
 
-    public Object get() {
+    public Optional<Object> get() {
 
         HttpURLConnection conn = getConnection();
 
@@ -92,7 +93,7 @@ public class ServerHandler {
             throw new RuntimeException(e);
         }
 
-        return response;
+        return Optional.of(response);
     }
 
     public HttpURLConnection getConnection() {

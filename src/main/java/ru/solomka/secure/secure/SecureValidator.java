@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.solomka.secure.SecureBoot;
 
 import javax.crypto.SecretKey;
+import java.util.Optional;
 
 public class SecureValidator {
 
@@ -18,13 +19,16 @@ public class SecureValidator {
         this.secureBoot = secureBoot;
     }
 
-    public Jws<Claims> validateKey(String encryptKey) {
+    public Optional<Jws<Claims>> validateKey(String encryptKey) {
         Jws<Claims> jws;
+
+        if(encryptKey.isEmpty()) return Optional.empty();
+
         try {
             SecretKey key = Keys.hmacShaKeyFor(secureBoot.getSpecificKey().getBytes());
             jws = Jwts.parser().verifyWith(key).build().parseSignedClaims(encryptKey);
         } catch(Exception e){ throw new RuntimeException("Token is invalid! Please, retry later"); }
-        return jws;
+        return Optional.of(jws);
     }
 
     @Contract(value = "_ -> new", pure = true)

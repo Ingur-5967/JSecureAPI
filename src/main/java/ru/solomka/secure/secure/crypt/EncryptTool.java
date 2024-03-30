@@ -1,19 +1,17 @@
 package ru.solomka.secure.secure.crypt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.jetbrains.annotations.NotNull;
-import ru.solomka.secure.SecureBoot;
 
 import javax.crypto.SecretKey;
+import java.util.Optional;
 
 public class EncryptTool {
 
-    public static Claims getDecryptKey(@NotNull String secKey, String cryptKey) {
+    public static @NotNull Optional<Claims> getDecryptKey(@NotNull String secKey, @NotNull String cryptKey) {
         SecretKey key = Keys.hmacShaKeyFor(secKey.getBytes());
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(cryptKey).getPayload();
+        return Optional.of(Jwts.parser().verifyWith(key).build().parseSignedClaims(cryptKey).getPayload());
     }
 }

@@ -28,6 +28,12 @@ public class SecureManager {
         if(boot.getSpecificKey().isEmpty() || (boot.getSpecificKey().length() * 8) < 256)
             throw new IllegalArgumentException("Secure key is empty OR size < 256 symbols");
 
+        if(activeTime <= 0)
+            throw new IllegalArgumentException("Active time for a JWT token cannot be negative!");
+
+        if(entity.getId() == null || entity.getParameters() == null)
+            throw new IllegalArgumentException("Entity for a JWT token cannot be null!");
+
         SecretKey key = Keys.hmacShaKeyFor(boot.getSpecificKey().getBytes());
 
         Date now = new Date();
