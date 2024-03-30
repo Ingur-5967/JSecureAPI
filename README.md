@@ -1,5 +1,11 @@
-# SecureAPI
-Simple API for work with a JWT Token
+# SecureAPI - Simple API for work with a JWT Token
+
+=NEED A SPRING BOOT=
+| Request              | Address (URL)                               | Answer		    |
+| -------------------- | ------------------------------------------- | -------------------- |
+| GET                  | http://localhost:8080/api/token?sec_jwt=... | Any value (Variable) |
+| POST                 | http://localhost:8080/api/token?sec_jwt=... | Any value (Variable) |
+
 
 - Generate a JWT Token
 
