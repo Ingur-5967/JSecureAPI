@@ -48,7 +48,7 @@ public class Main implements SecureBoot {
 - Send GET request
 
 ```java
-        ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token?jwt=...");
+        ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token");
         System.out.println(serverHandler.getOfNullBody()); // Answer: Optional[...]
 ```
 
