@@ -8,7 +8,7 @@ Simple API for work with a JWT Token
 public class Main implements SecureBoot {
 
     public void onEnable() {
-        SecureManager secureManager = new SecureManager(this);
+        SecureManager secureManager = new SecureManager(this); //  Or SecureManager secureManager = new SecureManager(Main.class);
 
         String cryptJWT = secureManager.generateSecureKey(new SecureEntity() {
             @Override
