@@ -1,4 +1,4 @@
-# SecureAPI - Simple API for work with a JWT Token
+# JSecureAPI - Simple API for work with a JWT Token
 
 =NEED A SPRING BOOT=
 | Request              | Address (URL)                               | Answer		    |
