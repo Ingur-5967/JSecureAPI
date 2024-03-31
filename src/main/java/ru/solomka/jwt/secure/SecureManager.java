@@ -1,9 +1,9 @@
-package ru.solomka.secure.secure;
+package ru.solomka.jwt.secure;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.jetbrains.annotations.NotNull;
-import ru.solomka.secure.SecureBoot;
+import ru.solomka.jwt.SecureBoot;
 
 import javax.crypto.SecretKey;
 import java.lang.reflect.InvocationTargetException;

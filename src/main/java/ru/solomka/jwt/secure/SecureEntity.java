@@ -1,4 +1,4 @@
-package ru.solomka.secure.secure;
+package ru.solomka.jwt.secure;
 
 import java.io.Serializable;
 import java.util.Map;

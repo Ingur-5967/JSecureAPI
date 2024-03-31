@@ -1,4 +1,4 @@
-package ru.solomka.secure;
+package ru.solomka.jwt;
 
 import org.jetbrains.annotations.NotNull;
 

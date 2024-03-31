@@ -1,4 +1,4 @@
-package ru.solomka.secure.secure.crypt;
+package ru.solomka.jwt.secure.crypt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
