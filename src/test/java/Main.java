@@ -1,18 +1,9 @@
-import ru.solomka.jwt.SecureBoot;
-import ru.solomka.jwt.ServerHandler;
+import ru.solomka.jwt.server.ServerConnection;
+import ru.solomka.jwt.server.ServerHandler;
 
-import java.io.IOException;
-
-public class Main implements SecureBoot {
-
-    public static void main(String[] args) throws IOException {
-
-        ServerHandler serverHandler = new ServerHandler(STR."http://localhost:8080/api/token");
-        System.out.println(serverHandler.sendWithBody("KrytoiKluchBlyat"));
-    }
-
-    @Override
-    public String getSpecificKey() {
-        return "iahfa9f78sy98GS867DTF79yashu67TDFS8YDINDFGS807UmkhngfgjlpoO0U8GSDHNFMLC";
+public class Main {
+    public static void main(String[] args) {
+        ServerHandler serverHandler = new ServerHandler(new ServerConnection("http://localhost:8080/api"));
+        System.out.println(serverHandler.http().sendWithBody("TestValueForServer"));
     }
 }
