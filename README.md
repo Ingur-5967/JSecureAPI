@@ -99,7 +99,7 @@
 	<dependency>
 	    <groupId>com.github.Ingur-5967</groupId>
 	    <artifactId>JSecureAPI</artifactId>
-	    <version>1.0.5</version>
+	    <version>1.0.9</version>
 	</dependency>
 </dependencies>
 ```
@@ -116,7 +116,7 @@ dependencyResolutionManagement {
 	}
 
 dependencies {
-	implementation 'com.github.Ingur-5967:JSecureAPI:1.0.5'
+	implementation 'com.github.Ingur-5967:JSecureAPI:1.0.9'
 }
 ```
 
