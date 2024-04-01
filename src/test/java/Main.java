@@ -1,9 +1,7 @@
-import ru.solomka.jwt.server.ServerConnection;
-import ru.solomka.jwt.server.ServerHandler;
+import ru.solomka.jwt.SecureLoader;
+import ru.solomka.jwt.config.ConfigurationImpl;
 
-public class Main {
+public class Main implements SecureLoader {
     public static void main(String[] args) {
-        ServerHandler serverHandler = new ServerHandler(new ServerConnection("http://localhost:8080/api"));
-        System.out.println(serverHandler.http().sendWithBody("TestValueForServer"));
     }
 }
