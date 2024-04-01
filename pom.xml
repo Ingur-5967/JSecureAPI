@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.solomka.secure</groupId>
-    <artifactId>JSecure</artifactId>
-    <version>1.0.0</version>
+    <groupId>ru.solomka.jwt</groupId>
+    <artifactId>JSecureAPI</artifactId>
+    <version>1.0.7</version>
 
     <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
     <dependencies>
