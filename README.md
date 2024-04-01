@@ -1,5 +1,7 @@
 # JSecureAPI - Simple API for work with a JWT Token
 
+-> Example: https://github.com/Ingur-5967/ExampleSecureAPI
+
 =NEED A SPRING BOOT=
 | Request              | Address (URL)                               | Answer		    |
 | -------------------- | ------------------------------------------- | -------------------- |
@@ -7,82 +9,80 @@
 | POST                 | http://localhost:8080/api/token             | Optional[Any value]  |
 
 
-- Generate a JWT Token
+<h1>Features</h1>
+
+- Get value from properties file:
 
 ```java
+        ConfigurationImpl configuration = new ConfigurationImpl(Main.class);
 
-public class Main implements SecureBoot {
+        String parameter = String.valueOf(configuration.getValue("application.properties", "jwt.secret"));
 
-    public void onEnable() {
-        SecureManager secureManager = new SecureManager(this); //  Or SecureManager secureManager = new SecureManager(Main.class);
-
-        String cryptJWT = secureManager.generateSecureKey(new SecureEntity() {
-            @Override
-            public String getId() {
-                return "Anatoliy";
-            }
-
-            @Override
-            public Map<String, Object> getParameters() {
-                return Map.of("name", "Local", "email", "local@mail.ru");
-            }
-        }, 8600000);
-
-        System.out.println(cryptJWT);
-    }
-
-    @Override
-    public String getSpecificKey() {
-        return "uhasdyuigxcsihjwertyui237912t34678UIGYUFDAS78TY78678t3rghuasdsjgurhjndftdyuig"; // (length * 8) >= 256 or (length * 8) >= 384 or (length * 8) >= 512
-    }
-
-```
-
-- Send POST request
-
-```java
-        ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token");
-        System.out.println(serverHandler.sendWithBody(jwt)); // Answer: Optional[...]
-```
-
-- Send GET request
-
-```java
-        ServerHandler serverHandler = new ServerHandler("http://localhost:8080/api/token");
-        System.out.println(serverHandler.getOfNullBody()); // Answer: Optional[...]
-```
-
-- Decrypt a JWT Token
-
-```java
-        Claims decryptJWT = EncryptTool.getDecryptKey(getSpecificKey(), cryptJWT);
-        
-        Object name = decryptJWT.get("name"); // Local
-        Object email = decryptJWT.get("email"); // local@mail.ru
-```
-
-- Check a JWT Token:
-
-```java
-        SecureManager secureManager = new SecureManager(this); // Or SecureManager secureManager = new SecureManager(Main.class);
-
-        String cryptJWT = secureManager.generateSecureKey(new SecureEntity() {
-            @Override
-            public String getId() {
-                return "Anatoliy";
-            }
-
-            @Override
-            public Map<String, Object> getParameters() {
-                return Map.of("name", "Local", "email", "local@mail.ru");
-            }
-        }, 8600000);
-
-        if(!secureManager.validator().validateKey(cryptJWT))  // Valid!
-            return;
-        
         // ...
 ```
+
+- Generate a JWT token:
+
+```java
+	ConfigurationImpl configuration = new ConfigurationImpl(Main.class);
+
+        String parameter = String.valueOf(configuration.getValue("application.properties", "jwt.secret"));
+
+        SecureManager secureManager = new SecureManager(parameter);
+
+        String key = secureManager.generateSecureKey(new SecureEntity() {
+            @Override
+            public String getId() {
+                return "TestId";
+            }
+
+            @Override
+            public Map<String, Object> getParameters() {
+                return Map.of("name", "Plotter", "email", "Plotter@mail.ru");
+            }
+        }, 900000);
+
+        // ...
+```
+
+- Validate JWT Token
+```java
+        ConfigurationImpl configuration = new ConfigurationImpl(Main.class);
+        String parameter = String.valueOf(configuration.getValue("application.properties", "jwt.secret"));
+
+        SecureManager secureManager = new SecureManager(parameter);
+
+        Optional<Jws<Claims>> claims = secureManager.validator().validateKey("joined_jwt_token");
+
+        // ...
+```
+
+<h3>HTTP/HTTPS Requests</h3>
+
+- Get and Post (HTTP)
+```java
+        ServerConnection serverConnection = new ServerConnection("http://localhost:8080/.../...");
+        ServerHandler serverHandler = new ServerHandler(serverConnection);
+
+        Optional<Object> answerGet = serverHandler.http().getOfNullBody();
+	Optional<Object> answerPost = serverHandler.http().sendWithBody("any_value");
+
+        // ...
+```
+
+- Get and Post (HTTPS)
+```java
+        ServerConnection serverConnection = new ServerConnection("https://localhost:8080/.../...");
+        ServerHandler serverHandler = new ServerHandler(serverConnection);
+
+        Optional<Object> answerSecureGet = serverHandler.https("your_ssl_path").getWithSecure();
+	Optional<Object> answerSecurePost = serverHandler.https("your_ssl_path").sendWithSecure("any_value");
+
+        // ...
+```
+
+
+<h1>Maven/Gradle</h1>
 
 ### Maven
 
